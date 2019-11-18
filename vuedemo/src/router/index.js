@@ -7,6 +7,7 @@ import login from '@/components/login'
 import index from '@/components/index'
 import registe from'@/components/registe'
 import admin from '@/components/Administrator'
+import bm from '@/components/Online_bm'
 
 Vue.use(Router)  //Vue全局使用Router
  
@@ -42,6 +43,17 @@ export default new Router({
 		path:'/index',
 		name:'student',
 		component:index,
+		children:[
+			{
+				path:'',
+				name:'message',
+			},
+			{
+				path:'/registration',
+				name:'registration',
+				component:bm
+			},
+			]
 	},
   ]
 })
