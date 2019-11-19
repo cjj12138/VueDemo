@@ -41,6 +41,7 @@
 		data(){
 			return{
 				userid:this.$route.query.userid,
+				test_data:[]
 			}
 		},
 		methods:{
