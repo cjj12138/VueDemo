@@ -49,6 +49,8 @@ export default {
 				},
 			}).then(function(response) {
 				if (response.data.userid != null) {
+					console.log("开始储存")
+					sessionStorage.setItem("userid", userid) ;
 					var kind=response.data.kind;
 					console.log(response.data);
 					that.$Message.success('登录成功');
@@ -68,13 +70,6 @@ export default {
 							}
 						});
 					}
-					
-					// that.$router.push({
-					// 	path: '/suceess',
-					// 	query: {
-					// 		userid: userid
-					// 	}
-					// });
 				} else {
 					that.$Message.error('登录失败');
 				}

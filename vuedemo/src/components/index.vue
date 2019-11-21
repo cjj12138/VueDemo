@@ -40,9 +40,11 @@
 	export default{
 		data(){
 			return{
-				userid:this.$route.query.userid,
-				test_data:[]
+				userid:sessionStorage.getItem("userid")
 			}
+		},
+		mounted: function() {
+			this.show();
 		},
 		methods:{
 			index() {
@@ -50,6 +52,10 @@
 					path: '/login'
 				});
 			},
+			show(){
+				console.log("user_id："+this.userid)
+				console.log(sessionStorage.getItem("userid"))
+			}
 		}
 		
 	}
