@@ -41,7 +41,7 @@ export default {
 			// 	})
 			axios({
 				method: 'post',
-				url: '/api/xx',
+				url: '/api/login',
 				data: {
 					userid: userid,
 					password: password,

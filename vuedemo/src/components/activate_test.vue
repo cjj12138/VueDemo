@@ -1,100 +1,89 @@
+<!-- <template>
+	<el-table :data="tableData" border style="width: 100%">
+		<el-table-column prop="course_name" label="考试名称" width="180"></el-table-column>
+		<el-table-column prop="test_date" label="考试日期" width="180"></el-table-column>
+		<el-table-column prop="test_starttime" label="考试开始时间"></el-table-column>
+		<el-table-column prop="test_endtime" label="考试结束时间"></el-table-column>
+		<el-table-column prop="test_place" label="考试地点"></el-table-column>
+		<el-table-column property="state" align="center" label="权限状态">
+			<template slot-scope="scope">
+				<el-switch
+					v-model="tableData[scope.$index].state"
+					:active-value="1"
+					:inactive-value="0"
+					active-color="#13ce66"
+					inactive-color="#ff4949"
+				></el-switch>
+			</template>
+		</el-table-column>
+	</el-table>
+</template> -->
 <template>
-	<Table border :columns="columns1" :data="test_data"></Table>
-</template>
+    <el-table :data="tableData" border style="width: 100%">
+      <el-table-column label="考试名称" width="160">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.course_name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="考试日期" width="180">
+        <template scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.test_date }}</span>
+          </el-popover>
+        </template>
+      </el-table-column>
+	  <el-table-column label="考试开始时间" width="180">
+	    <template scope="scope">
+	      <span style="margin-left: 10px">{{ scope.row.test_starttime }}</span>
+	      </el-popover>
+	    </template>
+	  </el-table-column>
+	  <el-table-column label="考试结束日期" width="180">
+	    <template scope="scope">
+	      <span style="margin-left: 10px">{{ scope.row.test_endtime }}</span>
+	      </el-popover>
+	    </template>
+	  </el-table-column>
+      <el-table-column label="状态" align="center">
+        <template scope="props">
+          <el-switch
+            v-model="tableData[props.$index].state"
+            :active-value="1"
+            :inactive-value="0">
+          </el-switch>
+        </template>
+      </el-table-column>
+    </el-table>
+  </template>
 
 <script>
 import router from '@/router';
 import axios from 'axios';
-
 export default {
 	data() {
 		return {
-			columns1: [
-				{
-					title: '考试名称',
-					key: 'course_name'
-				},
-				{
-					title: '考试日期',
-					key: 'test_date'
-				},
-				{
-					title: '考试开始时间',
-					key: 'test_starttime'
-				},
-				{
-					title: '考试结束时间',
-					key: 'test_endtime'
-				},
-				{
-					title: '考试地点',
-					key: 'test_place'
-				},
-				{
-					title: 'Action',
-					key: 'action',
-					width: 150,
-					align: 'center',
-					render: (h, params) => {
-						return h('div', [
-							h('i-switch', {
-								//数据库1是已处理，0是未处理
-								props: {
-									type: 'primary',
-									value: params.row.commdityStatus
-								},
-								style: {
-									marginRight: '5px'
-								},
-								on: {
-									'on-change': value => {
-										console.log(value)
-										//触发事件是on-change,用双引号括起来，
-										//参数value是回调值，并没有使用到
-										this.switch(params.index,value); //params.index是拿到table的行序列，可以取到对应的表格值
-									}
-								}
-							})
-						]);
-					}
-				}
-			],
-			test_data: []
+			tableData: [
+				
+			]
 		};
 	},
 	mounted: function() {
-		this.get_table();
+		this.showtable();
 	},
 	methods: {
-		get_table() {
+		change(index, row) {
+			console.log(row);
+		},
+		showtable() {
 			var that = this;
-			console.log('开始');
 			axios({
 				method: 'get',
-				url: '/api/registration_Stu'
+				url: '/api/registration_Adm'
 			}).then(function(response) {
+				console.log(response);
 				console.log(response.data);
-				that.test_data = response.data;
-			});
-		},
-		switch(index,value) {
-			var that=this;
-			var state=value
-			this.$Message.info('考试激活：' + state);//0是已经激活，1是未激活
-			axios({
-				method: 'post',
-				url: '/api/start_bm',
-				data: {
-					userid: sessionStorage.getItem('userid'),
-					course_name: this.test_data[index].course_name,
-					course_id: this.test_data[index].course_id,
-					test_id: this.test_data[index].test_id,
-					state:state,
-				}
+				that.tableData = response.data;
 			});
 		}
 	}
 };
 </script>
-
-<style></style>
