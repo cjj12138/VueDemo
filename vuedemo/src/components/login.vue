@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld';
 import axios from 'axios';
 import router from '@/router';
 

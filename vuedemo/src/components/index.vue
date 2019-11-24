@@ -7,7 +7,7 @@
                         <Icon type="ios-navigate"></Icon>
                          考试相关
                     </template>
-                    <MenuItem name="1-1" to="/registration">网上报名</MenuItem>
+                    <MenuItem name="1-1" to="/registration_Stu">网上报名</MenuItem>
                     <MenuItem name="1-2" >考试信息</MenuItem>
                 </Submenu>
                 <Submenu name="2">

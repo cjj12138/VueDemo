@@ -6,8 +6,10 @@ import App from '@/App.vue'
 import login from '@/components/login'
 import index from '@/components/index'
 import registe from'@/components/registe'
-import admin from '@/components/Administrator'
+import admin from '@/components/Aindex'
 import bm from '@/components/Online_bm'
+import add_exam from '@/components/Admin'
+import activate from '@/components/activate_test'
 
 Vue.use(Router)  //Vue全局使用Router
  
@@ -37,7 +39,18 @@ export default new Router({
 		path:'/admin',
 		name:'Administrator',
 		component:admin,
-		props: true
+		children:[
+			{
+				path:"/add_exam",
+				name:"add_exam",
+				component:add_exam
+			},
+			{
+				path:"/activate",
+				name:'activate_test',
+				component:activate,
+			}
+			]
 	},
 	{
 		path:'/index',
@@ -49,7 +62,7 @@ export default new Router({
 				name:'message',
 			},
 			{
-				path:'/registration',
+				path:'/registration_Stu',
 				name:'registration',
 				component:bm
 			},

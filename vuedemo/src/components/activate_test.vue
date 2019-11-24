@@ -37,39 +37,24 @@ export default {
 					align: 'center',
 					render: (h, params) => {
 						return h('div', [
-							h(
-								'Button',
-								{
-									props: {
-										type: 'primary',
-										size: 'small'
-									},
-									style: {
-										marginRight: '5px'
-									},
-									on: {
-										click: () => {
-											this.show(params.index);
-										}
-									}
+							h('i-switch', {
+								//数据库1是已处理，0是未处理
+								props: {
+									type: 'primary',
+									value: params.row.commdityStatus
 								},
-								'查看'
-							),
-							h(
-								'Button',
-								{
-									props: {
-										type: 'error',
-										size: 'small'
-									},
-									on: {
-										click: () => {
-											this.registration(params.index);
-										}
-									}
+								style: {
+									marginRight: '5px'
 								},
-								'报名'
-							)
+								on: {
+									'on-change': value => {
+										console.log(value)
+										//触发事件是on-change,用双引号括起来，
+										//参数value是回调值，并没有使用到
+										this.switch(params.index,value); //params.index是拿到table的行序列，可以取到对应的表格值
+									}
+								}
+							})
 						]);
 					}
 				}
@@ -92,28 +77,19 @@ export default {
 				that.test_data = response.data;
 			});
 		},
-		show(index) {
-			this.$Modal.info({
-				title: '考试详情',
-				content: `考试名称：${this.test_data[index].course_name},
-				<br>考试日期:${this.test_data[index].test_date}
-				<br>考试开始时间:${this.test_data[index].test_starttime}
-				<br>考试结束时间:${this.test_data[index].test_endtime}
-				<br>考试地点:${this.test_data[index].test_place}`
-			});
-		},
-		registration(index) {
-			var that = this;
-			console.log(this.test_data[index]);
-			var bm_data = this.test_data[index];
+		switch(index,value) {
+			var that=this;
+			var state=value
+			this.$Message.info('考试激活：' + state);//0是已经激活，1是未激活
 			axios({
 				method: 'post',
-				url: '/api/bm',
+				url: '/api/start_bm',
 				data: {
 					userid: sessionStorage.getItem('userid'),
 					course_name: this.test_data[index].course_name,
 					course_id: this.test_data[index].course_id,
-					test_id: this.test_data[index].test_id
+					test_id: this.test_data[index].test_id,
+					state:state,
 				}
 			});
 		}
