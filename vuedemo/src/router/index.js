@@ -10,7 +10,7 @@ import admin from '@/components/Aindex'
 import bm from '@/components/Online_bm'
 import add_exam from '@/components/Admin'
 import activate from '@/components/activate_test'
-import my_exam from '@/components/my_Exam'
+import information from '@/components/information'
 
 Vue.use(Router)  //Vue全局使用Router
  
@@ -68,11 +68,12 @@ export default new Router({
 				component:bm
 			},
 			{
-				path:'/my_exam',
-				name:"my_exam",
-				component:my_exam,
-			}
+				path:'/information',
+				name:'information',
+				component:information
+			},
 			]
 	},
+	
   ]
 })

@@ -14,7 +14,7 @@
 							</div>
 							<div>
 								<label for="course_name">请输入考试课程</label>
-								<Input v-model="formItem.input" id="course_name" ref="course_name" placeholder="输入考试课程"></Input>
+								<input v-model="formItem.input" id="course_name" ref="course_name" placeholder="输入考试课程"></input>
 							</div>
 							<br>
 							<div class="form-group">

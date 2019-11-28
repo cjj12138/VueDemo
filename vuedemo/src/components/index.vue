@@ -7,7 +7,7 @@
                         <Icon type="ios-navigate"></Icon>
                          考试相关
                     </template>
-                    <MenuItem name="1-1" to="/registration_stu">网上报名</MenuItem>
+                    <MenuItem name="1-1" to="/registration_Stu">网上报名</MenuItem>
                     <MenuItem name="1-2" >考试信息</MenuItem>
                 </Submenu>
                 <Submenu name="2">
@@ -15,9 +15,8 @@
                         <Icon type="ios-keypad"></Icon>
                         个人信息
                     </template>
-                    <MenuItem name="2-1">修改个人信息</MenuItem>
+                    <MenuItem name="2-1" to="/information">修改个人信息</MenuItem>
                     <MenuItem name="2-2">成绩查询</MenuItem>
-                    <MenuItem name="2-3" to="/my_exam">我的考试</MenuItem>
                 </Submenu>
             </Menu>
         </Sider>
