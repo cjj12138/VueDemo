@@ -20,7 +20,6 @@
 <script>
 import axios from 'axios';
 import router from '@/router';
-import global_msg from '../../global.js';
 
 export default {
 	data () {
@@ -42,7 +41,7 @@ export default {
 			// 	})
 			axios({
 				method: 'post',
-				url:'/api/login',
+				url: '/api/login',
 				data: {
 					userid: userid,
 					password: password,
@@ -116,6 +115,16 @@ export default {
 <style>
 	
 	html,body{height:100%;},
+	
+	body {
+		display: -ms-flexbox;
+		display: flex;
+		-ms-flex-align: center;
+		align-items: center;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		background-color: #f5f5f5;
+	}
 	
 .bd-placeholder-img {
 	font-size: 1.125rem;
