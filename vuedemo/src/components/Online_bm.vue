@@ -83,7 +83,7 @@ export default {
 	methods: {
 		get_table() {
 			var that = this;
-			console.log('开始');
+
 			axios({
 				method: 'get',
 				url: '/api/registration_Stu'
@@ -115,6 +115,10 @@ export default {
 					course_id: this.test_data[index].course_id,
 					test_id: this.test_data[index].test_id
 				}
+			}).then(function(response) {
+				console.log("开始")
+				console.log(response.data);
+				that.$Message.info(response.data)
 			});
 		}
 	}

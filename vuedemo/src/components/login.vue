@@ -10,70 +10,68 @@
 		</div> -->
 		<form class="form-signin" method="post">
 			<h1 class="h3 mb-3 font-weight-normal">考试管理系统</h1>
-			<input id="userid" type="text" name="userid" ref="userid" class="form-control" placeholder="username"/>
-			<input id="pwd" type="password" name="password" ref="password" class="form-control" placeholder="Password"/>
-			<Button id="act" type="info" v-on:click="login()">登录</Button>
+			<input id="userid" type="text" name="userid" ref="userid" class="form-control" placeholder="username" />
+			<input id="pwd" type="password" name="password" ref="password" class="form-control" placeholder="Password" />
+			<Button id="act" type="info" v-on:click="login('info')">登录</Button>
 		</form>
-		</div>
+	</div>
 </template>
 
 <script>
 import axios from 'axios';
 import router from '@/router';
-import global_msg from '../../global.js';
 
 export default {
-	data () {
-		return{
-			
-		}
+	data() {
+		return {};
 	},
 	methods: {
-		login() {
-			var that = this;
-			var userid = this.$refs.userid.value;
-			var password = this.$refs.password.value;
-			// axios
-			// 	.post('/api/xx', {
-			// 		data: {
-			// 			username: username,
-			// 			password: password
-			// 		}
-			// 	})
-			axios({
-				method: 'post',
-				url:'/api/login',
-				data: {
-					userid: userid,
-					password: password,
-				},
-			}).then(function(response) {
-				if (response.data.userid != null) {
-					console.log("开始储存")
-					sessionStorage.setItem("userid", userid) ;
-					var kind=response.data.kind;
-					console.log(response.data);
-					that.$Message.success('登录成功');
-					console.log(kind);
-					if(kind=="000"){
-						that.$router.push({
-							path: '/admin',
-							query: {
-								userid: userid
-							}
-						});
-					}else if(kind=="1"){
-						that.$router.push({
-							path: '/index',
-							query: {
-								userid: userid
-							}
-						});
+		login(type) {
+			if (this.$refs.userid.value == "" || this.$refs.password.value == "") {
+				console.log(1111);
+				this.$Message[type]({
+					background: true,
+					content: '账号或密码不能为空'
+				});
+			} else {
+				var that = this;
+				var userid = this.$refs.userid.value;
+				var password = this.$refs.password.value;
+				axios({
+					method: 'post',
+					url: '/api/login',
+					data: {
+						userid: userid,
+						password: password
 					}
-				} else {
-					that.$Message.error('登录失败');
-				}
-			});
+				}).then(function(response) {
+					if (response.data.userid != null) {
+						console.log('开始储存');
+						sessionStorage.setItem('userid', userid);
+						var kind = response.data.kind;
+						console.log(response.data);
+						that.$Message.success('登录成功');
+						console.log(kind);
+						if (kind == '000') {
+							that.$router.push({
+								path: '/admin',
+								query: {
+									userid: userid
+								}
+							});
+						} else if (kind == '1') {
+							that.$router.push({
+								path: '/index',
+								query: {
+									userid: userid
+								}
+							});
+						}
+					} else {
+						that.$Message.error('账号或密码错误');
+					}
+				});
+			}
 		},
 		toregiste() {
 			var r_userid = this.$refs.userid.value;
@@ -114,9 +112,22 @@ export default {
 </script>
 
 <style>
-	
-	html,body{height:100%;},
-	
+html,
+body {
+	height: 100%;
+}
+
+,
+body {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #f5f5f5;
+}
+
 .bd-placeholder-img {
 	font-size: 1.125rem;
 	text-anchor: middle;
@@ -154,7 +165,8 @@ export default {
 	margin-bottom: 10px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
-},
+}
+,
 .form-Style {
 	width: 100%;
 	text-align: center;
